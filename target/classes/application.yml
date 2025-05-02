@@ -1,0 +1,10 @@
+server:
+  port: 8081
+
+app:
+  input-file-path: D:\\Workspace\\data\\input\\largefile.txt
+  output-dir-path: D:\\Workspace\\data\\output\\
+  split-size: 7  # Minimum records per split
+  processor-job-url: http://localhost:8082/process
+  processed-dir-path: D:\\Workspace\\data\\output\\processed\\
+ 
