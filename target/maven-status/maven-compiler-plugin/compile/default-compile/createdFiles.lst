@@ -1,5 +1,0 @@
-com\example\service\ProcessingService.class
-com\example\MySpringBootAppApplication.class
-com\example\model\SplitResult.class
-com\example\controller\SplitterController.class
-com\example\service\SplitterService.class

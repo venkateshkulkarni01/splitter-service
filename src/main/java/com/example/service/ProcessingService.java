@@ -17,7 +17,7 @@ public class ProcessingService {
     @Value("${app.processed-dir-path}")
     private String processedDirPath;
 
-   
+    private static final Object LOCK = new Object();
 
     public void processFile(String inputFilePath) {
         try {
@@ -26,27 +26,31 @@ public class ProcessingService {
                 Files.createDirectories(outputDir);
             }
 
-            String outputFileName = processedDirPath + new File(inputFilePath).getName().replace("split", "processed");
+            String finalOutputFile = processedDirPath + "final-processed-output.txt";
 
-            BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
-            BufferedWriter writer = new BufferedWriter(new FileWriter(outputFileName));
+            try (
+                BufferedReader reader = new BufferedReader(new FileReader(inputFilePath));
+            ) {
+                String todayDate = LocalDate.now().toString();
+                String line;
 
-            String line;
-              String todayDate = LocalDate.now().toString();
-            while ((line = reader.readLine()) != null) {
-                // Enrichment logic — sample: add timestamp
-                String enriched = line + ",DATE:" + todayDate;
-                writer.write(enriched);
-                writer.newLine();
+                while ((line = reader.readLine()) != null) {
+                    String enriched = line + ",DATE:" + todayDate;
+
+                    // Append to the final shared file in a synchronized block
+                    synchronized (LOCK) {
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter(finalOutputFile, true))) {
+                            writer.write(enriched);
+                            writer.newLine();
+                        }
+                    }
+                }
             }
 
-            reader.close();
-            writer.close();
-            log.info("Processed file written: {}", outputFileName);
+            log.info("Finished processing and appending to: {}", finalOutputFile);
 
         } catch (IOException e) {
             log.error("Error processing file: " + inputFilePath, e);
         }
     }
 }
-
