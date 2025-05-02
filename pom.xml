@@ -15,21 +15,20 @@
 
     <properties>
         <java.version>17</java.version>
+          <camel.version>4.4.0</camel.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-spring-boot-starter</artifactId>
+            <version>${camel.version}</version>
         </dependency>
-
-        
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-file-starter</artifactId>
+            <version>${camel.version}</version>
         </dependency>
-
         <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
