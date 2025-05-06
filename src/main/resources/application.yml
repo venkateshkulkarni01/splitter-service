@@ -9,4 +9,11 @@ app:
   seda:
     queue-size: 200000
     concurrent-consumers: 16
- 
+  
+  thread-pool:
+    core-size: 25
+    max-size: 100
+    queue-size: 50000
+
+  monitoring:
+    log-interval-seconds: 30
