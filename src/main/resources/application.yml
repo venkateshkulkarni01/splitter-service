@@ -7,6 +7,6 @@ app:
   input-dir: D:\\Workspace\\data\\input\\split\\
   output-dir: D:\\Workspace\\data\\output\\processed\\
   seda:
-    queue-size: 500000
-    concurrent-consumers: 15
+    queue-size: 200000
+    concurrent-consumers: 16
  
